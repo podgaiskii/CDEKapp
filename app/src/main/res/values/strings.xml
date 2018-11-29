@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">CDEK</string>
+    <string name="city_from">City from</string>
+    <string name="city_to">City to</string>
+    <string name="submit">Submit</string>
+    <string name="back">Back</string>
+    <string name="weight">Weight</string>
+    <string name="length">Length</string>
+    <string name="width">Width</string>
+    <string name="height">Height</string>
+</resources>

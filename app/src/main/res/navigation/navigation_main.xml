@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/inputCitiesFragment">
+
+    <fragment
+        android:id="@+id/inputCitiesFragment"
+        android:name="by.marpod.cdekapp.ui.fragment.InputCitiesFragment"
+        tools:layout="@layout/fragment_input_cities">
+
+        <action
+            android:id="@+id/action_inputCitiesFragment_to_availableRoutesFragment"
+            app:destination="@id/availableRoutesFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/availableRoutesFragment"
+        android:name="by.marpod.cdekapp.ui.fragment.AvailableRoutesFragment"
+        tools:layout="@layout/fragment_available_routes" />
+
+</navigation>

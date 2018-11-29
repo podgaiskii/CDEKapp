@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "580257910350",
+    "firebase_url": "https://cdekapp.firebaseio.com",
+    "project_id": "cdekapp",
+    "storage_bucket": "cdekapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:580257910350:android:9e3792b1c7aea235",
+        "android_client_info": {
+          "package_name": "by.marpod.cdekapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "580257910350-gtvpsqgotrctitmfj09gfqljbgvlr69e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "by.marpod.cdekapp",
+            "certificate_hash": "3d1023169aa753937eafc1b84731d9fdf5c247ce"
+          }
+        },
+        {
+          "client_id": "580257910350-4d44a3pf6d4gu91d32hif55l75niskul.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYt_ZONRK7T7bRgYfkKvtpbbGA7DwRhxs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "580257910350-4d44a3pf6d4gu91d32hif55l75niskul.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
