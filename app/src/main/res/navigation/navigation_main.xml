@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/inputCitiesFragment"
-        android:name="by.marpod.cdekapp.ui.fragment.InputCitiesFragment"
+        android:name="by.marpod.cdekapp.ui.fragment.user.InputCitiesFragment"
         tools:layout="@layout/fragment_input_cities">
 
         <action
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/availableRoutesFragment"
-        android:name="by.marpod.cdekapp.ui.fragment.AvailableRoutesFragment"
+        android:name="by.marpod.cdekapp.ui.fragment.user.AvailableRoutesFragment"
         tools:layout="@layout/fragment_available_routes" />
 
 </navigation>

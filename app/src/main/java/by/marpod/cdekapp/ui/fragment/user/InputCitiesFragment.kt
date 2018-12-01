@@ -1,4 +1,4 @@
-package by.marpod.cdekapp.ui.fragment
+package by.marpod.cdekapp.ui.fragment.user
 
 import android.os.Bundle
 import android.view.LayoutInflater

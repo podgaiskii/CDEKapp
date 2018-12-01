@@ -12,10 +12,10 @@
 
     <item name="text_line_spacing" format="float" type="dimen">1.2</item>
 
-    <dimen name="large_text">24sp</dimen>
-    <dimen name="medium_text">20sp</dimen>
-    <dimen name="normal_text">16sp</dimen>
-    <dimen name="small_text">12sp</dimen>
+    <dimen name="text_large">24sp</dimen>
+    <dimen name="text_medium">20sp</dimen>
+    <dimen name="text_normal">16sp</dimen>
+    <dimen name="text_small">12sp</dimen>
 
     <dimen name="segmented_button_height">44dp</dimen>
     <dimen name="segmented_button_corner_radius">8dp</dimen>
