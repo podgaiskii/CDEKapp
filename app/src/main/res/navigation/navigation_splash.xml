@@ -12,11 +12,13 @@
 
         <action
             android:id="@+id/action_splashActivity_to_authActivity"
-            app:destination="@id/authActivity" />
+            app:destination="@id/authActivity"
+            app:launchSingleTop="true" />
 
         <action
             android:id="@+id/action_splashActivity_to_mainActivity"
-            app:destination="@id/mainActivity" />
+            app:destination="@id/mainActivity"
+            app:launchSingleTop="true" />
 
     </fragment>
 

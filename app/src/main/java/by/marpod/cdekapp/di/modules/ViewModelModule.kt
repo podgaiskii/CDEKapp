@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import by.marpod.cdekapp.di.annotations.ViewModelKey
 import by.marpod.cdekapp.viewmodel.AuthViewModel
 import by.marpod.cdekapp.viewmodel.CdekViewModelFactory
+import by.marpod.cdekapp.viewmodel.InputCitiesViewModel
 import by.marpod.cdekapp.viewmodel.RegistrationViewModel
 import dagger.Binds
 import dagger.Module
@@ -25,4 +26,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(RegistrationViewModel::class)
     abstract fun bindRegistrationViewModel(registrationViewModel: RegistrationViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(InputCitiesViewModel::class)
+    abstract fun bindInputCitiesViewModel(inputCitiesViewModel: InputCitiesViewModel): ViewModel
 }

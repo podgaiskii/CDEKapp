@@ -17,23 +17,20 @@ class UsersRepository @Inject constructor(
         @Named(FirebaseTables.USERS) private val usersDatabaseReference: DatabaseReference
 ) {
 
-    fun get(username: String): LiveData<User?> {
-        val result = object : FirebaseDatabaseLiveData<User?>() {
-            override fun onCancelled(error: DatabaseError) {
+    fun get(username: String): LiveData<User?> = object : FirebaseDatabaseLiveData<User?>(
+            usersDatabaseReference.orderByChild(User.FIELD_USERNAME).equalTo(username)
+    ) {
+        override fun onCancelled(error: DatabaseError) {
+            postValue(null)
+        }
+
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+            if (dataSnapshot.exists()) {
+                postValue(dataSnapshot.children.iterator().next().getValue(User::class.java))
+            } else {
                 postValue(null)
             }
-
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    postValue(dataSnapshot.children.iterator().next().getValue(User::class.java))
-                } else {
-                    postValue(null)
-                }
-            }
         }
-        usersDatabaseReference.orderByChild(User.FIELD_USERNAME).equalTo(username)
-                .addListenerForSingleValueEvent(result)
-        return result
     }
 
     fun add(user: User): LiveData<User?> {

@@ -20,9 +20,9 @@ class AvailableRoutesFragment : BaseFragment() {
     var binding by autoCleared<FragmentAvailableRoutesBinding>()
 
     val cities = listOf(
-            City("Minsk"),
-            City("Vladivostok"),
-            City("Zhdanovichi")
+            City("", "Minsk"),
+            City("", "Vladivostok"),
+            City("", "Zhdanovichi")
     )
 
     val routes = listOf(
