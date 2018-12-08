@@ -1,35 +1,27 @@
 {
   "project_info": {
-    "project_number": "580257910350",
-    "firebase_url": "https://cdekapp.firebaseio.com",
-    "project_id": "cdekapp",
-    "storage_bucket": "cdekapp.appspot.com"
+    "project_number": "179208860825",
+    "firebase_url": "https://cdekapp-d5810.firebaseio.com",
+    "project_id": "cdekapp-d5810",
+    "storage_bucket": "cdekapp-d5810.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:580257910350:android:9e3792b1c7aea235",
+        "mobilesdk_app_id": "1:179208860825:android:9e3792b1c7aea235",
         "android_client_info": {
           "package_name": "by.marpod.cdekapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "580257910350-gtvpsqgotrctitmfj09gfqljbgvlr69e.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "by.marpod.cdekapp",
-            "certificate_hash": "3d1023169aa753937eafc1b84731d9fdf5c247ce"
-          }
-        },
-        {
-          "client_id": "580257910350-4d44a3pf6d4gu91d32hif55l75niskul.apps.googleusercontent.com",
+          "client_id": "179208860825-g3icgctrspuaajsjdu56uf5ujmhi5pgn.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCYt_ZONRK7T7bRgYfkKvtpbbGA7DwRhxs"
+          "current_key": "AIzaSyDE5pm-NFUPDxjgjBi3BB5rfjU4atdCMOA"
         }
       ],
       "services": {
@@ -37,13 +29,8 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "580257910350-4d44a3pf6d4gu91d32hif55l75niskul.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2

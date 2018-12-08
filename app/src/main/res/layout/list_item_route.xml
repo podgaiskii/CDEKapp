@@ -40,11 +40,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_normal"
+            android:text="Expecting delivery: 01.01.2019"
             android:textSize="@dimen/text_normal"
             app:layout_constraintEnd_toStartOf="@id/tv_cost"
             app:layout_constraintStart_toStartOf="@id/tv_route"
-            app:layout_constraintTop_toBottomOf="@id/tv_delivery_time"
-            android:text="Expecting delivery: 01.01.2019" />
+            app:layout_constraintTop_toBottomOf="@id/tv_delivery_time" />
 
         <TextView
             android:id="@+id/tv_cost"

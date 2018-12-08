@@ -16,4 +16,10 @@
     <string name="repeat_password">Repeat password</string>
     <string name="have_account">Have account?</string>
     <string name="truck">Truck</string>
+
+    <string name="error_empty_field">Field is empty!</string>
+    <string name="error_auth">Authorization error!</string>
+    <string name="error_registration">Registration error!</string>
+    <string name="error_password_mismatch">Entered passwords mismatch!</string>
+    <string name="error_user_already_exist">User with such username already exists!</string>
 </resources>
