@@ -7,14 +7,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import by.marpod.cdekapp.R
 import by.marpod.cdekapp.data.dto.User
-import by.marpod.cdekapp.extensions.switchMap
 import by.marpod.cdekapp.repository.UsersRepository
 import by.marpod.cdekapp.util.Event
+import by.marpod.cdekapp.util.extensions.switchMap
 import javax.inject.Inject
 
 class AuthViewModel @Inject constructor(
-        usersRepository: UsersRepository,
-        context: Context
+        private val usersRepository: UsersRepository,
+        private val context: Context
 ) : ViewModel() {
 
     private val requestedUser = MutableLiveData<String>()

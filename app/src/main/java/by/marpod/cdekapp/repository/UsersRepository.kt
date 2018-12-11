@@ -38,11 +38,13 @@ class UsersRepository @Inject constructor(
         usersDatabaseReference.push()
                 .apply {
                     result.value = key?.let {
-                        val newUser = User(
-                                it,
-                                user.username,
-                                user.password
-                        )
+                        val newUser = with(user) {
+                            User(
+                                    it,
+                                    username,
+                                    password
+                            )
+                        }
                         setValue(newUser, null)
                         newUser
                     }

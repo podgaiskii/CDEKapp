@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import by.marpod.cdekapp.R
 import by.marpod.cdekapp.data.dto.Route
-import by.marpod.cdekapp.extensions.inflate
+import by.marpod.cdekapp.util.extensions.inflate
 import kotlinx.android.synthetic.main.list_item_route.view.*
 
 class AvailableRoutesRecyclerViewAdapter(private val items: List<Route>) : RecyclerView.Adapter<AvailableRoutesRecyclerViewAdapter.ViewHolder>() {

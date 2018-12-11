@@ -3,10 +3,7 @@ package by.marpod.cdekapp.di.modules
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import by.marpod.cdekapp.di.annotations.ViewModelKey
-import by.marpod.cdekapp.viewmodel.AuthViewModel
-import by.marpod.cdekapp.viewmodel.CdekViewModelFactory
-import by.marpod.cdekapp.viewmodel.InputCitiesViewModel
-import by.marpod.cdekapp.viewmodel.RegistrationViewModel
+import by.marpod.cdekapp.viewmodel.*
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -29,6 +26,22 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(InputCitiesViewModel::class)
-    abstract fun bindInputCitiesViewModel(inputCitiesViewModel: InputCitiesViewModel): ViewModel
+    @ViewModelKey(CitiesViewModel::class)
+    abstract fun bindInputCitiesViewModel(citiesViewModel: CitiesViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SentRequestsViewModel::class)
+    abstract fun bindSentRequestsViewModel(sentRequestsViewModel: SentRequestsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CalculatedRequestsViewModel::class)
+    abstract fun bindAvailableRoutesViewModel(calculatedRequestsViewModel: CalculatedRequestsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(RequestsViewModel::class)
+    abstract fun bindRequestsViewModel(requestsViewModel: RequestsViewModel): ViewModel
+
 }

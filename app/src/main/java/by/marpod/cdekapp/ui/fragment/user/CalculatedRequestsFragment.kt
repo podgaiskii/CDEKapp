@@ -1,23 +1,23 @@
 package by.marpod.cdekapp.ui.fragment.user
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import by.marpod.cdekapp.R
 import by.marpod.cdekapp.base.BaseFragment
 import by.marpod.cdekapp.data.dto.City
 import by.marpod.cdekapp.data.dto.Route
-import by.marpod.cdekapp.databinding.FragmentAvailableRoutesBinding
+import by.marpod.cdekapp.ui.activity.MainActivity
 import by.marpod.cdekapp.ui.adapter.AvailableRoutesRecyclerViewAdapter
-import by.marpod.cdekapp.util.autoCleared
+import kotlinx.android.synthetic.main.fragment_calculated_requests.*
+import javax.inject.Inject
 
-class AvailableRoutesFragment : BaseFragment() {
+class CalculatedRequestsFragment @Inject constructor(
+
+) : BaseFragment() {
 
     override val layout: Int
-        get() = R.layout.fragment_available_routes
-
-    var binding by autoCleared<FragmentAvailableRoutesBinding>()
+        get() = R.layout.fragment_calculated_requests
 
     val cities = listOf(
             City("", "Minsk"),
@@ -37,13 +37,14 @@ class AvailableRoutesFragment : BaseFragment() {
 
     val adapter = AvailableRoutesRecyclerViewAdapter(routes)
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = FragmentAvailableRoutesBinding.inflate(inflater, container, false).apply {
-            setLifecycleOwner(this@AvailableRoutesFragment)
-
-            rvRoutes.adapter = adapter
-        }
-
-        return binding.root
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        rv_routes.adapter = adapter
+        rv_routes.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (dy != 0) {
+                    (activity as MainActivity).hideFab(dy >= 0)
+                }
+            }
+        })
     }
 }

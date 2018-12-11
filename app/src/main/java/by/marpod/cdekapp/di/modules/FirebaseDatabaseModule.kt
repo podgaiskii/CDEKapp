@@ -29,4 +29,9 @@ class FirebaseDatabaseModule {
     @Singleton
     @Named(FirebaseTables.ROUTES)
     fun provideRoutesDatabaseReference() = provideRootDatabaseReference().child(FirebaseTables.ROUTES)
+
+    @Provides
+    @Singleton
+    @Named(FirebaseTables.REQUESTS)
+    fun provideRequestsDatabaseReference() = provideRootDatabaseReference().child(FirebaseTables.REQUESTS)
 }

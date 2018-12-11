@@ -16,10 +16,17 @@
     <string name="repeat_password">Repeat password</string>
     <string name="have_account">Have account?</string>
     <string name="truck">Truck</string>
+    <string name="logout">Logout</string>
+    <string name="close">Close</string>
+
+    <string name="sent_requests">Sent</string>
+    <string name="calculated_requests">Calculated</string>
 
     <string name="error_empty_field">Field is empty!</string>
     <string name="error_auth">Authorization error!</string>
     <string name="error_registration">Registration error!</string>
     <string name="error_password_mismatch">Entered passwords mismatch!</string>
     <string name="error_user_already_exist">User with such username already exists!</string>
+    <string name="error_request_not_found">Request not found</string>
+    <string name="error_add_request">Adding request error!</string>
 </resources>

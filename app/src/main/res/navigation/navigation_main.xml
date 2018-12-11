@@ -3,21 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/inputCitiesFragment">
+    app:startDestination="@id/requestsFragment">
+
+    <action
+        android:id="@+id/mainActivity_to_authActivity"
+        app:destination="@id/authActivity" />
+
+    <action
+        android:id="@+id/mainActivity_to_inputCitiesFragment"
+        app:destination="@id/newRequestActivity" />
 
     <fragment
-        android:id="@+id/inputCitiesFragment"
-        android:name="by.marpod.cdekapp.ui.fragment.user.InputCitiesFragment"
-        tools:layout="@layout/fragment_input_cities">
+        android:id="@+id/requestsFragment"
+        android:name="by.marpod.cdekapp.ui.fragment.user.RequestsFragment"
+        tools:layout="@layout/fragment_requests" />
 
-        <action
-            android:id="@+id/action_inputCitiesFragment_to_availableRoutesFragment"
-            app:destination="@id/availableRoutesFragment" />
-    </fragment>
+    <activity
+        android:id="@+id/newRequestActivity"
+        android:name="by.marpod.cdekapp.ui.activity.NewRequestActivity"
+        tools:layout="@layout/activity_new_request" />
 
-    <fragment
-        android:id="@+id/availableRoutesFragment"
-        android:name="by.marpod.cdekapp.ui.fragment.user.AvailableRoutesFragment"
-        tools:layout="@layout/fragment_available_routes" />
+    <activity
+        android:id="@+id/authActivity"
+        android:name="by.marpod.cdekapp.ui.activity.AuthActivity"
+        tools:layout="@layout/fragment_auth" />
 
 </navigation>

@@ -1,73 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tv_route"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_marginStart="@dimen/margin_normal"
+        android:layout_marginTop="@dimen/margin_normal"
+        android:layout_marginEnd="@dimen/margin_normal"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_medium"
+        app:layout_constraintEnd_toStartOf="@id/tv_cost"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Minsk > Vladivostok > Zhdanovichi" />
 
-        <TextView
-            android:id="@+id/tv_route"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_normal"
-            android:layout_marginTop="@dimen/margin_normal"
-            android:layout_marginEnd="@dimen/margin_normal"
-            android:fontFamily="sans-serif-medium"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_medium"
-            app:layout_constraintEnd_toStartOf="@id/tv_cost"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Minsk > Vladivostok > Zhdanovichi" />
+    <TextView
+        android:id="@+id/tv_delivery_time"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_normal"
+        android:textSize="@dimen/text_normal"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/tv_cost"
+        app:layout_constraintStart_toStartOf="@id/tv_route"
+        app:layout_constraintTop_toBottomOf="@id/tv_route"
+        tools:text="30 days" />
 
-        <TextView
-            android:id="@+id/tv_delivery_time"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_normal"
-            android:textSize="@dimen/text_normal"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@id/tv_cost"
-            app:layout_constraintStart_toStartOf="@id/tv_route"
-            app:layout_constraintTop_toBottomOf="@id/tv_route"
-            tools:text="30 days" />
+    <TextView
+        android:id="@+id/tv_expecting_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_normal"
+        android:text="Expecting delivery: 01.01.2019"
+        android:textSize="@dimen/text_normal"
+        app:layout_constraintEnd_toStartOf="@id/tv_cost"
+        app:layout_constraintStart_toStartOf="@id/tv_route"
+        app:layout_constraintTop_toBottomOf="@id/tv_delivery_time" />
 
-        <TextView
-            android:id="@+id/tv_expecting_date"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_normal"
-            android:text="Expecting delivery: 01.01.2019"
-            android:textSize="@dimen/text_normal"
-            app:layout_constraintEnd_toStartOf="@id/tv_cost"
-            app:layout_constraintStart_toStartOf="@id/tv_route"
-            app:layout_constraintTop_toBottomOf="@id/tv_delivery_time" />
+    <TextView
+        android:id="@+id/tv_cost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_normal"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/text_large"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="300 BYN" />
 
-        <TextView
-            android:id="@+id/tv_cost"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_normal"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/text_large"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="300 BYN" />
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/margin_normal"
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tv_route"
+        app:layout_constraintTop_toBottomOf="@id/tv_expecting_date" />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/margin_normal"
-            android:background="@color/colorPrimaryDark"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@id/tv_route"
-            app:layout_constraintTop_toBottomOf="@id/tv_expecting_date" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>

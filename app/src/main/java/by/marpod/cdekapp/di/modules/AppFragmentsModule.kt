@@ -1,10 +1,12 @@
 package by.marpod.cdekapp.di.modules
 
+import by.marpod.cdekapp.ui.activity.NewRequestActivity
 import by.marpod.cdekapp.ui.fragment.SplashFragment
 import by.marpod.cdekapp.ui.fragment.auth.AuthFragment
 import by.marpod.cdekapp.ui.fragment.auth.RegistrationFragment
-import by.marpod.cdekapp.ui.fragment.user.AvailableRoutesFragment
-import by.marpod.cdekapp.ui.fragment.user.InputCitiesFragment
+import by.marpod.cdekapp.ui.fragment.user.CalculatedRequestsFragment
+import by.marpod.cdekapp.ui.fragment.user.RequestsFragment
+import by.marpod.cdekapp.ui.fragment.user.SentRequestsFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
@@ -22,8 +24,11 @@ interface AppFragmentsModule {
     fun registrationFragmentInjector(): RegistrationFragment
 
     @ContributesAndroidInjector(modules = [FragmentModule::class])
-    fun availableRoutesFragmentInjector(): AvailableRoutesFragment
+    fun availableRoutesFragmentInjector(): CalculatedRequestsFragment
 
     @ContributesAndroidInjector(modules = [FragmentModule::class])
-    fun inputCitiesFragmentInjector(): InputCitiesFragment
+    fun sentRequestsFragmentInjector(): SentRequestsFragment
+
+    @ContributesAndroidInjector(modules = [FragmentModule::class])
+    fun requestsFragmentInjector(): RequestsFragment
 }

@@ -1,4 +1,4 @@
-package by.marpod.cdekapp.extensions
+package by.marpod.cdekapp.util.extensions
 
 import androidx.lifecycle.Observer
 import by.marpod.cdekapp.util.Event

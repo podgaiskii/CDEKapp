@@ -8,10 +8,10 @@ import androidx.navigation.fragment.findNavController
 import by.marpod.cdekapp.R
 import by.marpod.cdekapp.base.BaseFragment
 import by.marpod.cdekapp.data.dto.User
-import by.marpod.cdekapp.extensions.EventObserver
-import by.marpod.cdekapp.extensions.isBlank
-import by.marpod.cdekapp.extensions.text
 import by.marpod.cdekapp.repository.CurrentUserRepository
+import by.marpod.cdekapp.util.extensions.EventObserver
+import by.marpod.cdekapp.util.extensions.areValid
+import by.marpod.cdekapp.util.extensions.text
 import by.marpod.cdekapp.viewmodel.RegistrationViewModel
 import kotlinx.android.synthetic.main.fragment_registration.*
 import javax.inject.Inject
@@ -38,23 +38,6 @@ class RegistrationFragment : BaseFragment() {
         }
 
         btn_sign_up.setOnClickListener {
-            var allViewsValid = true
-            if (username.isBlank()) {
-                username.error = getString(R.string.error_empty_field)
-                allViewsValid = false
-            }
-            if (password.isBlank()) {
-                password.error = getString(R.string.error_empty_field)
-                allViewsValid = false
-            }
-            if (repeat_password.isBlank()) {
-                repeat_password.error = getString(R.string.error_empty_field)
-                allViewsValid = false
-            }
-            if (allViewsValid && password.text != repeat_password.text) {
-                showError(R.string.error_password_mismatch)
-                allViewsValid = false
-            }
             if (allViewsValid) {
                 viewModel.register(User("", username.text, password.text))
             }
@@ -67,6 +50,17 @@ class RegistrationFragment : BaseFragment() {
         viewModel.registrationSuccessful.observe(this, EventObserver {
             currentUserRepository.put(it)
             findNavController().navigate(R.id.action_registrationFragment_to_mainActivity)
+            activity!!.finish()
         })
     }
+
+    private val allViewsValid: Boolean
+        get() {
+            var allViewsValid = listOf(username, password, repeat_password).areValid()
+            if (allViewsValid && password.text != repeat_password.text) {
+                showError(R.string.error_password_mismatch)
+                allViewsValid = false
+            }
+            return allViewsValid
+        }
 }

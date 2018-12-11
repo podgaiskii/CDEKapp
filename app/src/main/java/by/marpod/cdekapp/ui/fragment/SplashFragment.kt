@@ -28,6 +28,7 @@ class SplashFragment : BaseFragment() {
                 } else {
                     findNavController().navigate(R.id.action_splashActivity_to_mainActivity)
                 }
+                activity!!.finish()
             }, anim.duration)
         }
     }

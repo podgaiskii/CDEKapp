@@ -16,8 +16,7 @@
 
         <action
             android:id="@+id/action_authFragment_to_mainActivity"
-            app:destination="@id/mainActivity"
-            app:launchSingleTop="true" />
+            app:destination="@id/mainActivity" />
     </fragment>
 
     <fragment
@@ -27,13 +26,12 @@
 
         <action
             android:id="@+id/action_registrationFragment_to_mainActivity"
-            app:destination="@id/mainActivity"
-            app:launchSingleTop="true" />
+            app:destination="@id/mainActivity" />
     </fragment>
 
     <activity
         android:id="@+id/mainActivity"
         android:name="by.marpod.cdekapp.ui.activity.MainActivity"
-        tools:layout="@layout/fragment_input_cities" />
+        tools:layout="@layout/activity_new_request" />
 
 </navigation>

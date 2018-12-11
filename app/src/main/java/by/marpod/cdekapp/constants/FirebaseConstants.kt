@@ -5,4 +5,5 @@ object FirebaseTables {
     const val USERS = "USERS"
     const val CITIES = "CITIES"
     const val ROUTES = "ROUTES"
+    const val REQUESTS = "REQUESTS"
 }
