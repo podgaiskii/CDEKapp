@@ -37,6 +37,26 @@ class RequestRepository @Inject constructor(
         }
     }
 
+    fun getAllFor(username: String): LiveData<List<Request>?> = object : FirebaseDatabaseLiveData<List<Request>?>(
+            requestsDatabaseReference.orderByChild(Request.FIELD_USERNAME).equalTo(username)
+    ) {
+        override fun onCancelled(error: DatabaseError) {
+            postValue(null)
+        }
+
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+            if (dataSnapshot.exists()) {
+                val result = mutableListOf<Request>()
+                for (child in dataSnapshot.children) {
+                    result += child.getValue(Request::class.java)!!
+                }
+                postValue(result)
+            } else {
+                postValue(null)
+            }
+        }
+    }
+
     fun get(id: String): LiveData<Request?> = object : FirebaseDatabaseLiveData<Request?>(
             requestsDatabaseReference.orderByChild(Request.FIELD_ID).equalTo(id)
     ) {
@@ -63,9 +83,11 @@ class RequestRepository @Inject constructor(
                                     it,
                                     cityFrom,
                                     cityTo,
-                                    volume,
+                                    length,
+                                    width,
+                                    height,
                                     date,
-                                    userId
+                                    username
                             )
                         }
                         setValue(newRequest, null)

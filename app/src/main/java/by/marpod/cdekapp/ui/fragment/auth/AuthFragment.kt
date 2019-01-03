@@ -7,7 +7,10 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import by.marpod.cdekapp.R
 import by.marpod.cdekapp.base.BaseFragment
+import by.marpod.cdekapp.data.dto.Direction
+import by.marpod.cdekapp.data.dto.TransportationMethod
 import by.marpod.cdekapp.repository.CurrentUserRepository
+import by.marpod.cdekapp.repository.DirectionsRepository
 import by.marpod.cdekapp.util.extensions.EventObserver
 import by.marpod.cdekapp.util.extensions.areValid
 import by.marpod.cdekapp.util.extensions.text

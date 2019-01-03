@@ -3,6 +3,7 @@ package by.marpod.cdekapp.ui.fragment.user
 import android.os.Bundle
 import android.view.View
 import by.marpod.cdekapp.R
+import by.marpod.cdekapp.base.BaseActivity
 import by.marpod.cdekapp.base.BaseFragment
 import by.marpod.cdekapp.ui.adapter.RequestsPagerAdapter
 import kotlinx.android.synthetic.main.fragment_requests.*

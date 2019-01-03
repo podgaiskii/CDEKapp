@@ -5,7 +5,8 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Route(
-        val route: List<City>,
-        val days: Int,
-        val cost: Float
+        val id: String = "",
+        val route: List<City> = listOf(),
+        val days: Int = 0,
+        val cost: Float = 0F
 ) : Parcelable

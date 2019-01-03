@@ -5,10 +5,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import by.marpod.cdekapp.R
 import by.marpod.cdekapp.data.dto.Route
+import by.marpod.cdekapp.ui.adapter.CalculatedRequestsRecyclerViewAdapter.ViewHolder
 import by.marpod.cdekapp.util.extensions.inflate
 import kotlinx.android.synthetic.main.list_item_route.view.*
 
-class AvailableRoutesRecyclerViewAdapter(private val items: List<Route>) : RecyclerView.Adapter<AvailableRoutesRecyclerViewAdapter.ViewHolder>() {
+class CalculatedRequestsRecyclerViewAdapter(items: List<Route> = emptyList()) : RecyclerView.Adapter<ViewHolder>() {
+
+    var items: List<Route> = items
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     override fun getItemCount() = items.size
 
@@ -24,8 +31,8 @@ class AvailableRoutesRecyclerViewAdapter(private val items: List<Route>) : Recyc
         fun bind(route: Route) {
             containerView.apply {
                 tv_route.text = route.route.joinToString(" > ") { it.name }
-                tv_delivery_time.text = route.days.toString() + " days"
-                tv_cost.text = route.cost.toString() + " BYN"
+                tv_delivery_time.text = "${route.days} days"
+                tv_cost.text = "${route.cost} BYN"
             }
         }
     }

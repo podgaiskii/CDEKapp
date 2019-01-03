@@ -8,9 +8,11 @@ data class Request(
         val id: String,
         val cityFrom: String,
         val cityTo: String,
-        val volume: Int,
+        val length: Int,
+        val width: Int,
+        val height: Int,
         val date: Long,
-        val userId: String
+        val username: String
 ) : Parcelable {
 
     companion object {
@@ -18,7 +20,9 @@ data class Request(
         const val FIELD_CITY_FROM = "cityFrom"
         const val FIELD_CITY_TO = "cityTo"
         const val FIELD_LENGTH = "length"
-        const val FIELD_VOLUME = "volume"
-        const val FIELD_USER_ID = "userId"
+        const val FIELD_WIDTH = "width"
+        const val FIELD_HEIGHT = "height"
+        const val FIELD_DATE = "date"
+        const val FIELD_USERNAME = "username"
     }
 }

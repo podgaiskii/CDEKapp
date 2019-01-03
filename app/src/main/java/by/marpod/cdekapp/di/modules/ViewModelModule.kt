@@ -31,11 +31,6 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(SentRequestsViewModel::class)
-    abstract fun bindSentRequestsViewModel(sentRequestsViewModel: SentRequestsViewModel): ViewModel
-
-    @Binds
-    @IntoMap
     @ViewModelKey(CalculatedRequestsViewModel::class)
     abstract fun bindAvailableRoutesViewModel(calculatedRequestsViewModel: CalculatedRequestsViewModel): ViewModel
 

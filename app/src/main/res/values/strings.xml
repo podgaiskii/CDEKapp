@@ -29,4 +29,5 @@
     <string name="error_user_already_exist">User with such username already exists!</string>
     <string name="error_request_not_found">Request not found</string>
     <string name="error_add_request">Adding request error!</string>
+    <string name="error_empty_list">There are no available items.</string>
 </resources>

@@ -29,7 +29,13 @@ class RequestsViewModel @Inject constructor(
 
     private val requestsGetAll = MutableLiveData<Unit>()
 
-    private val resultGetAll: LiveData<List<Request>?> = requestGet.switchMap { requestRepository.getAll() }
+    private val resultGetAll: LiveData<List<Request>?> = requestsGetAll.switchMap { requestRepository.getAll() }
+
+    private val requestsGetAllFor = MutableLiveData<String>()
+
+    private val resultGetAllFor: LiveData<List<Request>?> = requestsGetAllFor.switchMap { username ->
+        requestRepository.getAllFor(username)
+    }
 
     private val _requestsFound = MediatorLiveData<Event<List<Request>?>>()
     val requestsFound: LiveData<Event<List<Request>?>>
@@ -74,6 +80,12 @@ class RequestsViewModel @Inject constructor(
             }
         }
 
+        _requestsFound.addSource(resultGetAllFor) { requests ->
+            requests?.let {
+                _requestsFound.value = Event(it)
+            }
+        }
+
         _requestAdded.addSource(resultAdd) { request ->
             request?.let {
                 _requestAdded.value = Event(it)
@@ -87,6 +99,10 @@ class RequestsViewModel @Inject constructor(
 
     fun getAll() {
         requestsGetAll.value = Unit
+    }
+
+    fun getAllFor(username: String) {
+        requestsGetAllFor.value = username
     }
 
     fun addRequest(request: Request) {

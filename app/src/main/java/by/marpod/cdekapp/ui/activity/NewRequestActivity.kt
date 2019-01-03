@@ -2,9 +2,9 @@ package by.marpod.cdekapp.ui.activity
 
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import androidx.annotation.DrawableRes
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
@@ -47,9 +47,11 @@ class NewRequestActivity : BaseActivity() {
                         "",
                         city_from.text,
                         city_to.text,
-                        length.textInt * width.textInt * height.textInt,
+                        length.textInt,
+                        width.textInt,
+                        height.textInt,
                         System.currentTimeMillis(),
-                        currentUserRepository.id
+                        currentUserRepository.username
                 ))
             }
         }
@@ -102,20 +104,17 @@ class NewRequestActivity : BaseActivity() {
 
         citiesViewModel.getAll()
 
-        addNavigationIcon(R.drawable.ic_add)
+        supportActionBar?.let {
+            it.setDisplayHomeAsUpEnabled(true)
+        }
+
     }
 
-    override fun onStop() {
-        removeNavigationIcon()
-        super.onStop()
-    }
-
-    private fun addNavigationIcon(@DrawableRes iconRes: Int) {
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-    }
-
-    private fun removeNavigationIcon() {
-        supportActionBar!!.setDisplayHomeAsUpEnabled(false)
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            android.R.id.home -> finish()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun AutoCompleteTextView.setData(data: List<City>?) {
