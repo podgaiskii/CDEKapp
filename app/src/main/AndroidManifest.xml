@@ -24,6 +24,8 @@
         <activity
             android:name=".ui.activity.NewRequestActivity"
             android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".ui.activity.ModerActivity" />
+        <activity android:name=".ui.activity.HandleRequestActivity" />
     </application>
 
 </manifest>

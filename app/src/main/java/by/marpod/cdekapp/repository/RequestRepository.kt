@@ -18,7 +18,7 @@ class RequestRepository @Inject constructor(
 ) {
 
     fun getAll(): LiveData<List<Request>?> = object : FirebaseDatabaseLiveData<List<Request>?>(
-            requestsDatabaseReference.orderByKey()
+            requestsDatabaseReference.orderByChild(Request.FIELD_HANDLED).equalTo(false)
     ) {
         override fun onCancelled(error: DatabaseError) {
             postValue(null)
@@ -57,6 +57,26 @@ class RequestRepository @Inject constructor(
         }
     }
 
+    fun getAllHandled(): LiveData<List<Request>?> = object : FirebaseDatabaseLiveData<List<Request>?>(
+            requestsDatabaseReference.orderByChild(Request.FIELD_HANDLED).equalTo(true)
+    ) {
+        override fun onCancelled(error: DatabaseError) {
+            postValue(null)
+        }
+
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+            if (dataSnapshot.exists()) {
+                val result = mutableListOf<Request>()
+                for (child in dataSnapshot.children) {
+                    result += child.getValue(Request::class.java)!!
+                }
+                postValue(result)
+            } else {
+                postValue(null)
+            }
+        }
+    }
+
     fun get(id: String): LiveData<Request?> = object : FirebaseDatabaseLiveData<Request?>(
             requestsDatabaseReference.orderByChild(Request.FIELD_ID).equalTo(id)
     ) {
@@ -77,23 +97,33 @@ class RequestRepository @Inject constructor(
         val result = MutableLiveData<Request?>()
         requestsDatabaseReference.push()
                 .apply {
-                    result.value = key?.let {
+                    result.value = key?.let { key ->
                         val newRequest = with(request) {
                             Request(
-                                    it,
+                                    key,
                                     cityFrom,
                                     cityTo,
                                     length,
                                     width,
                                     height,
                                     date,
-                                    username
+                                    username,
+                                    handled
                             )
                         }
-                        setValue(newRequest, null)
+                        setValue(newRequest)
                         newRequest
                     }
                 }
+        return result
+    }
+
+    fun setHandled(request: Request): LiveData<Request?> {
+        val result = MutableLiveData<Request?>()
+        requestsDatabaseReference.child(Request.FIELD_HANDLED).apply {
+            setValue(true)
+            result.value = request
+        }
         return result
     }
 }

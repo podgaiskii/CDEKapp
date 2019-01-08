@@ -36,6 +36,7 @@ class IncomeRequestsRecyclerViewAdapter(items: List<Request> = emptyList(),
                 city_to.text = request.cityTo
                 tv_length.text = request.length.toString()
                 tv_width.text = request.width.toString()
+                tv_height.text = request.height.toString()
                 username.text = request.username
                 setOnClickListener { onClick(request) }
             }

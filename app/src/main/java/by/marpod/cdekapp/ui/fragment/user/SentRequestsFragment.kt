@@ -2,6 +2,8 @@ package by.marpod.cdekapp.ui.fragment.user
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
@@ -42,15 +44,44 @@ class SentRequestsFragment @Inject constructor() : BaseFragment() {
                 }
             }
         })
-        update()
-        swipe_refresh.setOnRefreshListener { update() }
 
-        viewModel.requestsFound.observe(this, EventObserver {
-            adapter.items = it ?: emptyList()
+        refresh.setOnClickListener { update() }
+
+        viewModel.requestsFound.observe(this, EventObserver { items ->
+            adapter.items = items
+            hideProgress()
+        })
+
+        viewModel.noRequestsFound.observe(this, EventObserver {
+            showEmptyList()
         })
     }
 
+    override fun onResume() {
+        super.onResume()
+        update()
+    }
+
     private fun update() {
+        hideEmptyList()
+        showProgress()
         viewModel.getAllFor(currentUserRepository.username)
+    }
+
+    private fun showEmptyList() {
+        hideProgress()
+        empty_list.isVisible = true
+    }
+
+    private fun hideEmptyList() {
+        empty_list.isGone = true
+    }
+
+    private fun showProgress() {
+        progress.isVisible = true
+    }
+
+    private fun hideProgress() {
+        progress.isGone = true
     }
 }

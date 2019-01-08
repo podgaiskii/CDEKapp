@@ -27,19 +27,33 @@ class RequestsViewModel @Inject constructor(
     val requestFound: LiveData<Event<Request>>
         get() = _requestFound
 
-    private val requestsGetAll = MutableLiveData<Unit>()
+    private val requestGetAll = MutableLiveData<Unit>()
 
-    private val resultGetAll: LiveData<List<Request>?> = requestsGetAll.switchMap { requestRepository.getAll() }
+    private val resultGetAll: LiveData<List<Request>?> = requestGetAll.switchMap { requestRepository.getAll() }
 
-    private val requestsGetAllFor = MutableLiveData<String>()
+    private val requestGetAllFor = MutableLiveData<String>()
 
-    private val resultGetAllFor: LiveData<List<Request>?> = requestsGetAllFor.switchMap { username ->
+    private val resultGetAllFor: LiveData<List<Request>?> = requestGetAllFor.switchMap { username ->
         requestRepository.getAllFor(username)
     }
 
-    private val _requestsFound = MediatorLiveData<Event<List<Request>?>>()
-    val requestsFound: LiveData<Event<List<Request>?>>
+    private val requestGetAllHandled = MutableLiveData<Unit>()
+
+    private val resultGetAllHandled: LiveData<List<Request>?> = requestGetAllHandled.switchMap { requestRepository.getAllHandled() }
+
+    private val requestGetAllHandledFor = MutableLiveData<String>()
+
+    private val resultGetAllHandledFor: LiveData<List<Request>?> = requestGetAllHandledFor.switchMap { username ->
+        requestRepository.getAllFor(username)
+    }
+
+    private val _requestsFound = MediatorLiveData<Event<List<Request>>>()
+    val requestsFound: LiveData<Event<List<Request>>>
         get() = _requestsFound
+
+    private val _noRequestsFound = MediatorLiveData<Event<Unit>>()
+    val noRequestsFound: LiveData<Event<Unit>>
+        get() = _noRequestsFound
 
     private val requestAdd = MutableLiveData<Request>()
 
@@ -77,13 +91,35 @@ class RequestsViewModel @Inject constructor(
         _requestsFound.addSource(resultGetAll) { requests ->
             requests?.let {
                 _requestsFound.value = Event(it)
-            }
+            } ?: noRequestsFound()
         }
 
         _requestsFound.addSource(resultGetAllFor) { requests ->
+            requests?.let { list ->
+                val unhandled: List<Request> = list.filter { !it.handled }
+                if (unhandled.isNotEmpty()) {
+                    _requestsFound.value = Event(unhandled)
+                } else {
+                    noRequestsFound()
+                }
+            } ?: noRequestsFound()
+        }
+
+        _requestsFound.addSource(resultGetAllHandled) { requests ->
             requests?.let {
                 _requestsFound.value = Event(it)
-            }
+            } ?: noRequestsFound()
+        }
+
+        _requestsFound.addSource(resultGetAllHandledFor) { requests ->
+            requests?.let { list ->
+                val handled: List<Request> = list.filter { it.handled }
+                if (handled.isNotEmpty()) {
+                    _requestsFound.value = Event(handled)
+                } else {
+                    noRequestsFound()
+                }
+            } ?: noRequestsFound()
         }
 
         _requestAdded.addSource(resultAdd) { request ->
@@ -98,14 +134,26 @@ class RequestsViewModel @Inject constructor(
     }
 
     fun getAll() {
-        requestsGetAll.value = Unit
+        requestGetAll.value = Unit
     }
 
     fun getAllFor(username: String) {
-        requestsGetAllFor.value = username
+        requestGetAllFor.value = username
+    }
+
+    fun getAllHandled() {
+        requestGetAllHandled.value = Unit
+    }
+
+    fun getAllHandledFor(username: String) {
+        requestGetAllHandledFor.value = username
     }
 
     fun addRequest(request: Request) {
         requestAdd.value = request
+    }
+
+    private fun noRequestsFound() {
+        _noRequestsFound.value = Event(Unit)
     }
 }

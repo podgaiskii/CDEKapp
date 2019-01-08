@@ -10,11 +10,6 @@ class RequestsPagerAdapter(fragmentManager: FragmentManager) : FragmentPagerAdap
     private val fragments = mutableListOf<BaseFragment>()
     private val tabs = mutableListOf<String>()
 
-    companion object {
-        private const val SENT_REQUESTS_POSITION = 0
-        private const val AVAILABLE_ROUTES_POSITION = 1
-    }
-
     override fun getItem(position: Int): Fragment = fragments[position]
 
     override fun getCount() = fragments.size

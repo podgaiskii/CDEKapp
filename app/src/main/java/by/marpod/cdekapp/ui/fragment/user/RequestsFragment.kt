@@ -3,10 +3,9 @@ package by.marpod.cdekapp.ui.fragment.user
 import android.os.Bundle
 import android.view.View
 import by.marpod.cdekapp.R
-import by.marpod.cdekapp.base.BaseActivity
 import by.marpod.cdekapp.base.BaseFragment
 import by.marpod.cdekapp.ui.adapter.RequestsPagerAdapter
-import kotlinx.android.synthetic.main.fragment_requests.*
+import kotlinx.android.synthetic.main.fragment_with_tabs.*
 import javax.inject.Inject
 
 class RequestsFragment : BaseFragment() {
@@ -18,7 +17,7 @@ class RequestsFragment : BaseFragment() {
     lateinit var sentRequestsFragment: SentRequestsFragment
 
     override val layout: Int
-        get() = R.layout.fragment_requests
+        get() = R.layout.fragment_with_tabs
 
     private lateinit var pagerAdapter: RequestsPagerAdapter
 

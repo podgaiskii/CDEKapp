@@ -7,10 +7,8 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import by.marpod.cdekapp.R
 import by.marpod.cdekapp.base.BaseFragment
-import by.marpod.cdekapp.data.dto.Direction
-import by.marpod.cdekapp.data.dto.TransportationMethod
+import by.marpod.cdekapp.data.dto.User
 import by.marpod.cdekapp.repository.CurrentUserRepository
-import by.marpod.cdekapp.repository.DirectionsRepository
 import by.marpod.cdekapp.util.extensions.EventObserver
 import by.marpod.cdekapp.util.extensions.areValid
 import by.marpod.cdekapp.util.extensions.text
@@ -52,7 +50,10 @@ class AuthFragment : BaseFragment() {
         viewModel.userFound.observe(this, EventObserver {
             if (it.password == password.text) {
                 currentUserRepository.put(it)
-                findNavController().navigate(R.id.action_authFragment_to_mainActivity)
+                when (it.role) {
+                    User.ROLE_MODER -> findNavController().navigate(R.id.action_authFragment_to_moderActivity)
+                    else -> findNavController().navigate(R.id.action_authFragment_to_mainActivity)
+                }
                 activity!!.finish()
             } else {
                 showError(R.string.error_auth)

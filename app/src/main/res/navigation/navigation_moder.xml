@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_moder"
+    app:startDestination="@id/moderMainFragment">
+
+    <fragment
+        android:id="@+id/moderMainFragment"
+        android:name="by.marpod.cdekapp.ui.fragment.moder.ModerMainFragment"
+        tools:layout="@layout/fragment_with_tabs" />
+
+    <action
+        android:id="@+id/action_moderActivity_to_authActivity"
+        app:destination="@id/authActivity" />
+
+    <action
+        android:id="@+id/action_moderActivity_to_handleRequestActivity"
+        app:destination="@id/handleRequestActivity" />
+
+    <activity
+        android:id="@+id/authActivity"
+        android:name="by.marpod.cdekapp.ui.activity.AuthActivity"
+        tools:layout="@layout/fragment_auth" />
+
+    <activity
+        android:id="@+id/handleRequestActivity"
+        android:name="by.marpod.cdekapp.ui.activity.HandleRequestActivity"
+        tools:layout="@layout/fragment_with_tabs" />
+
+</navigation>

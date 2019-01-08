@@ -3,6 +3,7 @@ package by.marpod.cdekapp.ui.activity
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.MenuItem
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.lifecycle.Observer
@@ -29,6 +30,9 @@ class NewRequestActivity : BaseActivity() {
 
     override val layout: Int
         get() = R.layout.activity_new_request
+
+    override val rootView: View
+        get() = root
 
     private lateinit var citiesViewModel: CitiesViewModel
 

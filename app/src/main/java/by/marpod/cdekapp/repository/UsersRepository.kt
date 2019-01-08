@@ -42,7 +42,8 @@ class UsersRepository @Inject constructor(
                             User(
                                     it,
                                     username,
-                                    password
+                                    password,
+                                    role
                             )
                         }
                         setValue(newUser, null)

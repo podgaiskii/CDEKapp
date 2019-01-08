@@ -22,6 +22,18 @@
     <string name="sent_requests">Sent</string>
     <string name="calculated_requests">Calculated</string>
 
+    <string name="income_requests">Income</string>
+    <string name="handled_requests">Handled</string>
+
+    <string name="expecting_time">Expecting time:</string>
+    <string name="total_cost">Total cost:</string>
+    <string name="save">Save</string>
+    <string name="add_another">Add one more</string>
+
+    <string name="hours">%1$d hours</string>
+    <string name="days">%1$d days</string>
+    <string name="byn">%1$d BYN</string>
+
     <string name="error_empty_field">Field is empty!</string>
     <string name="error_auth">Authorization error!</string>
     <string name="error_registration">Registration error!</string>
@@ -30,4 +42,5 @@
     <string name="error_request_not_found">Request not found</string>
     <string name="error_add_request">Adding request error!</string>
     <string name="error_empty_list">There are no available items.</string>
+    <string name="press_to_choose_direction">Press to choose direction</string>
 </resources>

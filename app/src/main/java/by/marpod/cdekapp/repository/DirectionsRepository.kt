@@ -43,7 +43,7 @@ class DirectionsRepository @Inject constructor(
             if (dataSnapshot.exists()) {
                 postValue(dataSnapshot.children
                         .map { it.value as Direction }
-                        .filter { it.firstCity == cityFrom || it.secondCity == cityFrom })
+                        .filter { it.hasCity(cityFrom) })
             } else {
                 postValue(null)
             }

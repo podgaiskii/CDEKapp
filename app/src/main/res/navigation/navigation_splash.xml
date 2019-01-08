@@ -18,6 +18,10 @@
             android:id="@+id/action_splashActivity_to_mainActivity"
             app:destination="@id/mainActivity" />
 
+        <action
+            android:id="@+id/action_splashActivity_to_moderActivity"
+            app:destination="@id/moderActivity" />
+
     </fragment>
 
     <activity
@@ -29,5 +33,10 @@
         android:id="@+id/mainActivity"
         android:name="by.marpod.cdekapp.ui.activity.MainActivity"
         tools:layout="@layout/activity_new_request" />
+
+    <activity
+        android:id="@+id/moderActivity"
+        android:name="by.marpod.cdekapp.ui.activity.ModerActivity"
+        tools:layout="@layout/activity_moder" />
 
 </navigation>

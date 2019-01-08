@@ -21,4 +21,17 @@ data class Direction(
         const val FIELD_DISTANCE = "distance"
         const val FIELD_HOURS = "hours"
     }
+
+    fun hasCity(city: String) = firstCity == city || secondCity == city
+
+    fun calculateCost(size: Int): Int {
+        val k = when (method) {
+            TransportationMethod.PLANE -> 0.8
+            TransportationMethod.AUTO -> 0.6
+            TransportationMethod.TRAIN -> 0.4
+            TransportationMethod.SHIP -> 0.2
+            else -> throw IllegalStateException("unknown transportation method: $method")
+        }
+        return (100 * (size * k + hours / k)).toInt()
+    }
 }

@@ -35,6 +35,7 @@ class SentRequestsRecyclerViewAdapter(items: List<Request> = emptyList()) : Recy
                 city_to.text = request.cityTo
                 tv_length.text = request.length.toString()
                 tv_width.text = request.width.toString()
+                tv_height.text = request.height.toString()
                 username.isGone = true
                 arrow.isGone = true
             }

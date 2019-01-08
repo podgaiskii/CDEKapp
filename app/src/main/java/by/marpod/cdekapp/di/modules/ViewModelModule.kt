@@ -39,4 +39,9 @@ abstract class ViewModelModule {
     @ViewModelKey(RequestsViewModel::class)
     abstract fun bindRequestsViewModel(requestsViewModel: RequestsViewModel): ViewModel
 
+    @Binds
+    @IntoMap
+    @ViewModelKey(DirectionsViewModel::class)
+    abstract fun bindDirectionsViewModel(directionsViewModel: DirectionsViewModel): ViewModel
+
 }

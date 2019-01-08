@@ -2,6 +2,7 @@ package by.marpod.cdekapp.ui.activity
 
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.navigation.findNavController
 import by.marpod.cdekapp.R
 import by.marpod.cdekapp.base.BaseActivity
@@ -16,6 +17,9 @@ class MainActivity : BaseActivity() {
 
     override val layout: Int
         get() = R.layout.activity_main
+
+    override val rootView: View
+        get() = root
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.logout, menu)
@@ -41,7 +45,7 @@ class MainActivity : BaseActivity() {
     override fun onResume() {
         super.onResume()
         fab.setOnClickListener {
-            findNavController(R.id.main_nav_host_fragment).navigate(R.id.mainActivity_to_inputCitiesFragment)
+            findNavController(R.id.main_nav_host_fragment).navigate(R.id.mainActivity_to_inputCitiesActivity)
         }
     }
 

@@ -5,14 +5,15 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Request(
-        val id: String,
-        val cityFrom: String,
-        val cityTo: String,
-        val length: Int,
-        val width: Int,
-        val height: Int,
-        val date: Long,
-        val username: String
+        val id: String = "",
+        val cityFrom: String = "",
+        val cityTo: String = "",
+        val length: Int = 0,
+        val width: Int = 0,
+        val height: Int = 0,
+        val date: Long = 0L,
+        val username: String = "",
+        val handled: Boolean = false
 ) : Parcelable {
 
     companion object {
@@ -24,5 +25,8 @@ data class Request(
         const val FIELD_HEIGHT = "height"
         const val FIELD_DATE = "date"
         const val FIELD_USERNAME = "username"
+        const val FIELD_HANDLED = "handled"
     }
+
+    fun getSize() = length * width * height
 }

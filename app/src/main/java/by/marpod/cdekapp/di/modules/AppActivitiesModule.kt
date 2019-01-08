@@ -1,9 +1,6 @@
 package by.marpod.cdekapp.di.modules
 
-import by.marpod.cdekapp.ui.activity.AuthActivity
-import by.marpod.cdekapp.ui.activity.MainActivity
-import by.marpod.cdekapp.ui.activity.NewRequestActivity
-import by.marpod.cdekapp.ui.activity.SplashActivity
+import by.marpod.cdekapp.ui.activity.*
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
@@ -22,4 +19,10 @@ interface AppActivitiesModule {
 
     @ContributesAndroidInjector(modules = [ActivityModule::class])
     fun newRequestActivityInjector(): NewRequestActivity
+
+    @ContributesAndroidInjector(modules = [ActivityModule::class])
+    fun moderActivityInjector(): ModerActivity
+
+    @ContributesAndroidInjector(modules = [ActivityModule::class])
+    fun handleRequestActivityInjector(): HandleRequestActivity
 }
