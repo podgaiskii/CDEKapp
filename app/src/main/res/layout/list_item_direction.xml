@@ -68,11 +68,12 @@
         android:id="@+id/delimiter"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:text=" | "
         android:textSize="@dimen/text_normal"
         android:textStyle="bold"
+        android:fontFamily="sans-serif-black"
         app:layout_constraintStart_toEndOf="@id/expecting_delivery_time"
-        app:layout_constraintTop_toTopOf="@id/expecting_delivery_time"
-        tools:text=" | " />
+        app:layout_constraintTop_toTopOf="@id/expecting_delivery_time" />
 
     <TextView
         android:id="@+id/cost"
@@ -83,6 +84,18 @@
         app:layout_constraintStart_toEndOf="@id/delimiter"
         app:layout_constraintTop_toTopOf="@id/delimiter"
         tools:text="30 BYN" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/margin_small"
+        android:background="@color/colorPrimaryDark"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/city_from"
+        app:layout_constraintTop_toBottomOf="@id/cost" />
 
     <ImageView
         android:id="@+id/arrow"

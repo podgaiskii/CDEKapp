@@ -1,11 +1,11 @@
-package by.marpod.cdekapp.ui.adapter
+package by.marpod.cdekapp.ui.adapter.viewpager
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import by.marpod.cdekapp.base.BaseFragment
 
-class RequestsPagerAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {
+class TabsPagerAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {
 
     private val fragments = mutableListOf<BaseFragment>()
     private val tabs = mutableListOf<String>()

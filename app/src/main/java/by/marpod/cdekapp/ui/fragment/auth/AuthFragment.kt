@@ -9,6 +9,7 @@ import by.marpod.cdekapp.R
 import by.marpod.cdekapp.base.BaseFragment
 import by.marpod.cdekapp.data.dto.User
 import by.marpod.cdekapp.repository.CurrentUserRepository
+import by.marpod.cdekapp.repository.DirectionsRepository
 import by.marpod.cdekapp.util.extensions.EventObserver
 import by.marpod.cdekapp.util.extensions.areValid
 import by.marpod.cdekapp.util.extensions.text
@@ -23,6 +24,9 @@ class AuthFragment : BaseFragment() {
 
     @Inject
     lateinit var currentUserRepository: CurrentUserRepository
+
+    @Inject
+    lateinit var directionsRepository: DirectionsRepository
 
     override val layout: Int
         get() = R.layout.fragment_auth

@@ -31,4 +31,8 @@ class DirectionsViewModel @Inject constructor(
             }
         }
     }
+
+    fun getAllFrom(cityFrom: String) {
+        requestGetAllFrom.value = cityFrom
+    }
 }

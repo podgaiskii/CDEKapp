@@ -11,7 +11,7 @@ import by.marpod.cdekapp.R
 import by.marpod.cdekapp.base.BaseFragment
 import by.marpod.cdekapp.repository.CurrentUserRepository
 import by.marpod.cdekapp.ui.activity.MainActivity
-import by.marpod.cdekapp.ui.adapter.SentRequestsRecyclerViewAdapter
+import by.marpod.cdekapp.ui.adapter.recyclerview.SentRequestsAdapter
 import by.marpod.cdekapp.util.extensions.EventObserver
 import by.marpod.cdekapp.viewmodel.RequestsViewModel
 import kotlinx.android.synthetic.main.fragment_sent_requests.*
@@ -30,7 +30,7 @@ class SentRequestsFragment @Inject constructor() : BaseFragment() {
 
     lateinit var viewModel: RequestsViewModel
 
-    private var adapter = SentRequestsRecyclerViewAdapter()
+    private var adapter = SentRequestsAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel = ViewModelProviders.of(this, viewModelFactory)

@@ -12,7 +12,7 @@ import by.marpod.cdekapp.base.BaseFragment
 import by.marpod.cdekapp.data.dto.Request
 import by.marpod.cdekapp.repository.CurrentUserRepository
 import by.marpod.cdekapp.ui.activity.MainActivity
-import by.marpod.cdekapp.ui.adapter.CalculatedRequestsRecyclerViewAdapter
+import by.marpod.cdekapp.ui.adapter.recyclerview.CalculatedRequestsAdapter
 import by.marpod.cdekapp.util.extensions.EventObserver
 import by.marpod.cdekapp.viewmodel.RequestsViewModel
 import kotlinx.android.synthetic.main.fragment_calculated_requests.*
@@ -31,7 +31,7 @@ class CalculatedRequestsFragment @Inject constructor() : BaseFragment() {
 
     lateinit var viewModel: RequestsViewModel
 
-    private var adapter = CalculatedRequestsRecyclerViewAdapter(onClick = { showAvailableRoutes(it) })
+    private var adapter = CalculatedRequestsAdapter(onClick = { showAvailableRoutes(it) })
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel = ViewModelProviders.of(this, viewModelFactory)

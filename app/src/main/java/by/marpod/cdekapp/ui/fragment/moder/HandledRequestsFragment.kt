@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProviders
 import by.marpod.cdekapp.R
 import by.marpod.cdekapp.base.BaseFragment
 import by.marpod.cdekapp.data.dto.Request
-import by.marpod.cdekapp.ui.adapter.IncomeRequestsRecyclerViewAdapter
+import by.marpod.cdekapp.ui.adapter.recyclerview.IncomeRequestsAdapter
 import by.marpod.cdekapp.util.extensions.EventObserver
 import by.marpod.cdekapp.viewmodel.RequestsViewModel
 import kotlinx.android.synthetic.main.fragment_handled_requests.*
@@ -25,7 +25,7 @@ class HandledRequestsFragment @Inject constructor() : BaseFragment() {
 
     lateinit var viewModel: RequestsViewModel
 
-    private var adapter = IncomeRequestsRecyclerViewAdapter(onClick = { showAvailableRoutes(it) })
+    private var adapter = IncomeRequestsAdapter(onClick = { showAvailableRoutes(it) })
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel = ViewModelProviders.of(this, viewModelFactory)

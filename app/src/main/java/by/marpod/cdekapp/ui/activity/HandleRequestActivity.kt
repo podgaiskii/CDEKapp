@@ -9,8 +9,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import by.marpod.cdekapp.R
 import by.marpod.cdekapp.base.BaseActivity
+import by.marpod.cdekapp.data.dto.Direction
 import by.marpod.cdekapp.data.dto.Request
-import by.marpod.cdekapp.ui.adapter.HandleRequestRecyclerViewAdapter
+import by.marpod.cdekapp.ui.adapter.recyclerview.DirectionsAdapter
+import by.marpod.cdekapp.ui.adapter.recyclerview.HandleRequestAdapter
 import by.marpod.cdekapp.util.extensions.EventObserver
 import by.marpod.cdekapp.viewmodel.DirectionsViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -34,7 +36,10 @@ class HandleRequestActivity : BaseActivity() {
 
     private lateinit var directionsViewModel: DirectionsViewModel
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<FrameLayout>
-    private lateinit var adapter: HandleRequestRecyclerViewAdapter
+    private lateinit var adapter: HandleRequestAdapter
+
+    private var directions: List<Direction> = emptyList()
+    private var directionsAdapter: DirectionsAdapter? = null
 
     private val request by lazy { intent.getParcelableExtra<Request>(EXTRA_REQUEST) }
 
@@ -45,11 +50,12 @@ class HandleRequestActivity : BaseActivity() {
         directionsViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(DirectionsViewModel::class.java)
 
-//        bottomSheetBehavior = BottomSheetBehavior.from(bottom_sheet)
-//        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-        bottom_sheet.isGone = true
+        bottomSheetBehavior = BottomSheetBehavior.from(bottom_sheet).apply {
+            isHideable = true
+        }
+        hideBottomSheet()
 
-        adapter = HandleRequestRecyclerViewAdapter(this, request)
+        adapter = HandleRequestAdapter(this, request)
         recycler_view.adapter = adapter
         hideProgress()
         adapter.apply {
@@ -59,13 +65,14 @@ class HandleRequestActivity : BaseActivity() {
         }
 
         directionsViewModel.directionsFound.observe(this, EventObserver {
-
+            directions = it
+            setupDirectionsAdapter()
             hideProgress()
         })
 
         supportActionBar?.let {
             it.setDisplayHomeAsUpEnabled(true)
-
+            it.title = "${request.cityFrom} > ${request.cityTo}"
         }
     }
 
@@ -77,7 +84,27 @@ class HandleRequestActivity : BaseActivity() {
     }
 
     private fun openDestinationsFrom(cityFrom: String) {
-        //TODO: add bottom sheet dialog with destinations
+        showProgress()
+        directionsAdapter?.let {
+            setupDirectionsAdapter()
+        } ?: directionsViewModel.getAllFrom(cityFrom)
+    }
+
+    private fun directionClicked(direction: Direction) {
+        adapter.setCard(request, direction)
+        hideBottomSheet()
+    }
+
+    private fun setupDirectionsAdapter() {
+        if (directionsAdapter == null) {
+            directionsAdapter = DirectionsAdapter(directions, request).apply {
+                onDirectionClicked = { directionClicked(it) }
+            }
+            directions_recycler.adapter = directionsAdapter
+        } else {
+            hideProgress()
+        }
+        showBottomSheet()
     }
 
     private fun showProgress() {
@@ -88,7 +115,11 @@ class HandleRequestActivity : BaseActivity() {
         progress.isGone = true
     }
 
-    fun showBottomSheet() {
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+    private fun showBottomSheet() {
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+    }
+
+    private fun hideBottomSheet() {
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
     }
 }

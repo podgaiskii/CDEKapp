@@ -56,11 +56,11 @@
                 android:background="@drawable/shape_round"
                 app:layout_constraintBottom_toBottomOf="@id/card_cost"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/card_city_from"
+                app:layout_constraintTop_toTopOf="@id/card_cities"
                 app:srcCompat="@drawable/ic_train" />
 
             <TextView
-                android:id="@+id/card_city_from"
+                android:id="@+id/card_cities"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_small"
@@ -72,31 +72,6 @@
                 tools:text="Minsk" />
 
             <TextView
-                android:id="@+id/cities_delimiter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
-                android:text=" > "
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_medium"
-                app:layout_constraintBottom_toBottomOf="@id/card_city_from"
-                app:layout_constraintStart_toEndOf="@id/card_city_from"
-                app:layout_constraintTop_toTopOf="@id/card_city_from" />
-
-            <TextView
-                android:id="@+id/card_city_to"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/margin_normal"
-                android:fontFamily="sans-serif-medium"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_medium"
-                app:layout_constraintBottom_toBottomOf="@id/card_city_from"
-                app:layout_constraintStart_toEndOf="@id/cities_delimiter"
-                app:layout_constraintTop_toTopOf="@id/card_city_from"
-                tools:text="Vladivostok" />
-
-            <TextView
                 android:id="@+id/card_delivery_time"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -104,18 +79,19 @@
                 android:textSize="@dimen/text_normal"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@id/transfer_type"
-                app:layout_constraintTop_toBottomOf="@id/card_city_to"
+                app:layout_constraintTop_toBottomOf="@id/card_cities"
                 tools:text="30 days" />
 
             <TextView
                 android:id="@+id/delimiter"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:text=" | "
                 android:textSize="@dimen/text_normal"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@id/card_delivery_time"
-                app:layout_constraintTop_toTopOf="@id/card_delivery_time"
-                tools:text=" | " />
+                app:layout_constraintTop_toTopOf="@id/card_delivery_time" />
 
             <TextView
                 android:id="@+id/card_cost"

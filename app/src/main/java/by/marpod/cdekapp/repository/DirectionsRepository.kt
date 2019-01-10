@@ -42,7 +42,7 @@ class DirectionsRepository @Inject constructor(
         override fun onDataChange(dataSnapshot: DataSnapshot) {
             if (dataSnapshot.exists()) {
                 postValue(dataSnapshot.children
-                        .map { it.value as Direction }
+                        .map { it.getValue(Direction::class.java)!! }
                         .filter { it.hasCity(cityFrom) })
             } else {
                 postValue(null)
@@ -53,7 +53,7 @@ class DirectionsRepository @Inject constructor(
     fun addAll(directions: List<Direction>) {
         val map = directions.map {
             val key = directionsDatabaseReference.push().key!!
-            key to Direction(key, it.firstCity, it.secondCity, it.method, it.distance)
+            key to Direction(key, it.firstCity, it.secondCity, it.method, it.distance, it.hours)
         }.toMap()
         directionsDatabaseReference.updateChildren(map)
     }

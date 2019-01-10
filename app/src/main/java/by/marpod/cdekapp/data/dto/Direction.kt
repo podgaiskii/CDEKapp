@@ -32,6 +32,6 @@ data class Direction(
             TransportationMethod.SHIP -> 0.2
             else -> throw IllegalStateException("unknown transportation method: $method")
         }
-        return (100 * (size * k + hours / k)).toInt()
+        return (size * k + hours / k).toInt()
     }
 }

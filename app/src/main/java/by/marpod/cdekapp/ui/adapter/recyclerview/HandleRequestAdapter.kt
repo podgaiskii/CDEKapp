@@ -1,9 +1,10 @@
-package by.marpod.cdekapp.ui.adapter
+package by.marpod.cdekapp.ui.adapter.recyclerview
 
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -11,8 +12,8 @@ import by.marpod.cdekapp.R
 import by.marpod.cdekapp.data.dto.Direction
 import by.marpod.cdekapp.data.dto.Request
 import by.marpod.cdekapp.data.dto.TransportationMethod
-import by.marpod.cdekapp.ui.adapter.HandleRequestRecyclerViewAdapter.ViewHolder
-import by.marpod.cdekapp.ui.adapter.HandleRequestRecyclerViewAdapter.ViewHolder.*
+import by.marpod.cdekapp.ui.adapter.recyclerview.HandleRequestAdapter.ViewHolder
+import by.marpod.cdekapp.ui.adapter.recyclerview.HandleRequestAdapter.ViewHolder.*
 import by.marpod.cdekapp.util.extensions.inflate
 import by.marpod.cdekapp.util.extensions.text
 import kotlinx.android.extensions.LayoutContainer
@@ -21,7 +22,7 @@ import kotlinx.android.synthetic.main.list_item_handle_request_add.*
 import kotlinx.android.synthetic.main.list_item_handle_request_footer.*
 import kotlinx.android.synthetic.main.list_item_handle_request_header.*
 
-class HandleRequestRecyclerViewAdapter(
+class HandleRequestAdapter(
         private val context: Context,
         private val request: Request
 ) : RecyclerView.Adapter<ViewHolder>() {
@@ -70,7 +71,10 @@ class HandleRequestRecyclerViewAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = when (viewType) {
         HEADER -> HeaderViewHolder(parent.inflate(R.layout.list_item_handle_request_header))
         ITEM -> DirectionViewHolder(parent.inflate(R.layout.list_item_direction))
-        ADD -> AddDirectionViewHolder(parent.inflate(R.layout.list_item_handle_request_add))
+        ADD -> {
+            holderAdd = AddDirectionViewHolder(parent.inflate(R.layout.list_item_handle_request_add))
+            holderAdd
+        }
         FOOTER -> FooterViewHolder(parent.inflate(R.layout.list_item_handle_request_footer))
         else -> throw IllegalStateException("Unknown viewType $viewType")
     }
@@ -185,10 +189,10 @@ class HandleRequestRecyclerViewAdapter(
                     TransportationMethod.SHIP -> R.drawable.ic_ship
                     else -> throw IllegalStateException("unknown transportation method: ${direction.method}")
                 })
-                card_city_from.text = direction.firstCity
-                card_city_to.text = direction.secondCity
+                card_cities.text = "${direction.firstCity} > ${direction.secondCity}"
                 card_delivery_time.text = containerView.context.getString(R.string.hours, direction.hours)
                 card_cost.text = containerView.context.getString(R.string.byn, direction.calculateCost(request.getSize()))
+                card_content.isVisible = true
             }
         }
 
