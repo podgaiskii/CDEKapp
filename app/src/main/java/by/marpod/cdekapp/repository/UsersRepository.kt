@@ -3,7 +3,7 @@ package by.marpod.cdekapp.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.marpod.cdekapp.constants.FirebaseTables
-import by.marpod.cdekapp.data.dto.User
+import by.marpod.cdekapp.data.User
 import by.marpod.cdekapp.util.FirebaseDatabaseLiveData
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError

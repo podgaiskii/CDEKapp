@@ -1,17 +1,17 @@
 package by.marpod.cdekapp.ui.adapter.recyclerview
 
-import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isGone
+import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import by.marpod.cdekapp.R
-import by.marpod.cdekapp.data.dto.Direction
-import by.marpod.cdekapp.data.dto.Request
-import by.marpod.cdekapp.data.dto.TransportationMethod
+import by.marpod.cdekapp.data.Direction
+import by.marpod.cdekapp.data.Request
+import by.marpod.cdekapp.data.TransportationMethod
 import by.marpod.cdekapp.ui.adapter.recyclerview.HandleRequestAdapter.ViewHolder
 import by.marpod.cdekapp.ui.adapter.recyclerview.HandleRequestAdapter.ViewHolder.*
 import by.marpod.cdekapp.util.extensions.inflate
@@ -23,7 +23,6 @@ import kotlinx.android.synthetic.main.list_item_handle_request_footer.*
 import kotlinx.android.synthetic.main.list_item_handle_request_header.*
 
 class HandleRequestAdapter(
-        private val context: Context,
         private val request: Request
 ) : RecyclerView.Adapter<ViewHolder>() {
 
@@ -37,14 +36,16 @@ class HandleRequestAdapter(
     var directions: List<Direction> = emptyList()
         set(value) {
             field = value
-            buildMergedList(directionsList = value)
+            differ.submitList(buildMergedList())
         }
 
     var onAddAnotherClicked: () -> Unit = {}
 
-    var onSaveDestinationClicked: () -> Unit = {}
+    var onSaveDirectionClicked: (Direction) -> Unit = {}
 
-    var onChooseDestinationClicked: (cityFrom: String) -> Unit = {}
+    var onSaveRequestClicked: (List<Direction>) -> Unit = {}
+
+    var onChooseDirectionClicked: (cityFrom: String) -> Unit = {}
 
     private val differ = AsyncListDiffer<Any>(this, DiffCallback)
 
@@ -71,10 +72,7 @@ class HandleRequestAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = when (viewType) {
         HEADER -> HeaderViewHolder(parent.inflate(R.layout.list_item_handle_request_header))
         ITEM -> DirectionViewHolder(parent.inflate(R.layout.list_item_direction))
-        ADD -> {
-            holderAdd = AddDirectionViewHolder(parent.inflate(R.layout.list_item_handle_request_add))
-            holderAdd
-        }
+        ADD -> AddDirectionViewHolder(parent.inflate(R.layout.list_item_handle_request_add))
         FOOTER -> FooterViewHolder(parent.inflate(R.layout.list_item_handle_request_footer))
         else -> throw IllegalStateException("Unknown viewType $viewType")
     }
@@ -82,26 +80,29 @@ class HandleRequestAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = differ.currentList[position]
         when (holder) {
-            is HeaderViewHolder -> holder.bind(context, request, directions)
+            is HeaderViewHolder -> holder.bind(request, directions)
             is DirectionViewHolder -> holder.bind(request, item as Direction)
-            is AddDirectionViewHolder -> {
+            is AddDirectionViewHolder -> holder.apply {
+                holderAdd = this
                 val lastDirection = differ.currentList[position - 1] as? Direction
-                holder.bind(request, lastDirection) { onChooseDestinationClicked(it) }
+                bind(request, lastDirection)
+                onCardClicked = { onChooseDirectionClicked(it) }
+                onSaveClicked = { onSaveDirectionClicked(it) }
             }
             is FooterViewHolder -> holder.bind {
                 when (it.id) {
                     R.id.btn_add_another -> onAddAnotherClicked()
-                    R.id.btn_save_direction -> onSaveDestinationClicked()
+                    R.id.btn_save -> onSaveRequestClicked(directions)
                 }
             }
         }
     }
 
-    private fun buildMergedList(directionsList: List<Direction> = directions): List<Any> {
+    private fun buildMergedList(): List<Any> {
         val merged = mutableListOf<Any>(Header)
-        merged.addAll(directionsList)
+        merged.addAll(directions)
         merged +=
-                if (directionsList.isNotEmpty() && directionsList.last().hasCity(request.cityTo)) Footer
+                if (directions.isNotEmpty() && directions.last().hasCity(request.cityTo)) Footer
                 else Add
         return merged
     }
@@ -116,7 +117,7 @@ class HandleRequestAdapter(
         override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
             return when {
                 oldItem === Header && newItem === Header -> false
-                oldItem === Add && newItem === Add -> true
+                oldItem === Add && newItem === Add -> false
                 oldItem === Footer && newItem === Footer -> true
                 oldItem is Direction && newItem is Direction -> oldItem.id == newItem.id
                 else -> false
@@ -137,15 +138,15 @@ class HandleRequestAdapter(
                 override val containerView: View
         ) : ViewHolder(containerView) {
 
-            fun bind(context: Context, request: Request, directions: List<Direction>) {
+            fun bind(request: Request, directions: List<Direction>) {
                 var time = 0
                 var cost = 0
                 for (item in directions) {
                     time += item.hours
                     cost += item.calculateCost(request.getSize())
                 }
-                expecting_time.text = context.getString(R.string.hours, time)
-                total_cost.text = context.getString(R.string.byn, cost)
+                expecting_time.text = containerView.context.getString(R.string.hours, time)
+                total_cost.text = containerView.context.getString(R.string.byn, cost)
             }
         }
 
@@ -176,12 +177,20 @@ class HandleRequestAdapter(
                 override val containerView: View
         ) : ViewHolder(containerView) {
 
-            fun bind(request: Request, lastDirection: Direction? = null, onClick: (cityFrom: String) -> Unit) {
-                destination_from.text = request.cityFrom
-                card.setOnClickListener { onClick(destination_from.text) }
+            lateinit var selectedDirection: Direction
+
+            var onCardClicked: (cityFrom: String) -> Unit = {}
+            var onSaveClicked: (Direction) -> Unit = {}
+
+            fun bind(request: Request, lastDirection: Direction? = null) {
+                card_content.isInvisible = true
+                destination_from.text = lastDirection?.secondCity ?: request.cityFrom
+                card.setOnClickListener { onCardClicked(destination_from.text) }
+                btn_save_direction.setOnClickListener { onSaveClicked(selectedDirection) }
             }
 
             fun setCard(request: Request, direction: Direction) {
+                selectedDirection = direction
                 transfer_type.setImageResource(when (direction.method) {
                     TransportationMethod.PLANE -> R.drawable.ic_plane
                     TransportationMethod.AUTO -> R.drawable.ic_truck
@@ -193,6 +202,7 @@ class HandleRequestAdapter(
                 card_delivery_time.text = containerView.context.getString(R.string.hours, direction.hours)
                 card_cost.text = containerView.context.getString(R.string.byn, direction.calculateCost(request.getSize()))
                 card_content.isVisible = true
+                btn_save_direction.isVisible = true
             }
         }
 
@@ -201,7 +211,7 @@ class HandleRequestAdapter(
         ) : ViewHolder(containerView) {
 
             fun bind(listener: (View) -> Unit) {
-                btn_save_direction.setOnClickListener(listener)
+                btn_save.setOnClickListener(listener)
                 btn_add_another.setOnClickListener(listener)
             }
         }

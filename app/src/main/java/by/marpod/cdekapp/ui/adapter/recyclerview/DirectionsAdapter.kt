@@ -6,14 +6,14 @@ import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import by.marpod.cdekapp.R
-import by.marpod.cdekapp.data.dto.Direction
-import by.marpod.cdekapp.data.dto.Request
-import by.marpod.cdekapp.data.dto.TransportationMethod
+import by.marpod.cdekapp.data.Direction
+import by.marpod.cdekapp.data.Request
+import by.marpod.cdekapp.data.TransportationMethod
 import by.marpod.cdekapp.util.extensions.inflate
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.list_item_direction.*
 
-class DirectionsAdapter(private val directions: List<Direction>,
+class DirectionsAdapter(private var directions: List<Direction>,
                         private val request: Request) : RecyclerView.Adapter<DirectionsAdapter.ViewHolder>() {
 
     var onDirectionClicked: (Direction) -> Unit = {}

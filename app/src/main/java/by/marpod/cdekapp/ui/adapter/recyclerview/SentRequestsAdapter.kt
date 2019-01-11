@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.core.view.isGone
 import androidx.recyclerview.widget.RecyclerView
 import by.marpod.cdekapp.R
-import by.marpod.cdekapp.data.dto.Request
+import by.marpod.cdekapp.data.Request
 import by.marpod.cdekapp.ui.adapter.recyclerview.SentRequestsAdapter.ViewHolder
 import by.marpod.cdekapp.util.extensions.inflate
 import kotlinx.android.synthetic.main.list_item_request.view.*

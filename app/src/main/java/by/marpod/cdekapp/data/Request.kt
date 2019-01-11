@@ -1,4 +1,4 @@
-package by.marpod.cdekapp.data.dto
+package by.marpod.cdekapp.data
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

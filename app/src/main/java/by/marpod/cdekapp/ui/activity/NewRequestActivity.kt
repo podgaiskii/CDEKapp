@@ -11,8 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import by.marpod.cdekapp.R
 import by.marpod.cdekapp.base.BaseActivity
-import by.marpod.cdekapp.data.dto.City
-import by.marpod.cdekapp.data.dto.Request
+import by.marpod.cdekapp.data.City
+import by.marpod.cdekapp.data.Request
 import by.marpod.cdekapp.repository.CurrentUserRepository
 import by.marpod.cdekapp.util.extensions.*
 import by.marpod.cdekapp.viewmodel.CitiesViewModel
@@ -110,6 +110,7 @@ class NewRequestActivity : BaseActivity() {
 
         supportActionBar?.let {
             it.setDisplayHomeAsUpEnabled(true)
+            it.title = "Add transfer request"
         }
 
     }

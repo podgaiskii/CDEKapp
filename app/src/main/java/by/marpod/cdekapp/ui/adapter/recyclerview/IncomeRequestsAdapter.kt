@@ -2,9 +2,10 @@ package by.marpod.cdekapp.ui.adapter.recyclerview
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import by.marpod.cdekapp.R
-import by.marpod.cdekapp.data.dto.Request
+import by.marpod.cdekapp.data.Request
 import by.marpod.cdekapp.ui.adapter.recyclerview.IncomeRequestsAdapter.ViewHolder
 import by.marpod.cdekapp.util.extensions.inflate
 import kotlinx.android.synthetic.main.list_item_request.view.*
@@ -39,6 +40,7 @@ class IncomeRequestsAdapter(items: List<Request> = emptyList(),
                 tv_height.text = request.height.toString()
                 username.text = request.username
                 setOnClickListener { onClick(request) }
+                checked.isVisible = request.handled
             }
         }
     }

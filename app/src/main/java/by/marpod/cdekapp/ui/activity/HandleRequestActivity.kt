@@ -9,12 +9,15 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import by.marpod.cdekapp.R
 import by.marpod.cdekapp.base.BaseActivity
-import by.marpod.cdekapp.data.dto.Direction
-import by.marpod.cdekapp.data.dto.Request
+import by.marpod.cdekapp.data.CalculatedRequest
+import by.marpod.cdekapp.data.Direction
+import by.marpod.cdekapp.data.Request
 import by.marpod.cdekapp.ui.adapter.recyclerview.DirectionsAdapter
 import by.marpod.cdekapp.ui.adapter.recyclerview.HandleRequestAdapter
 import by.marpod.cdekapp.util.extensions.EventObserver
+import by.marpod.cdekapp.viewmodel.CalculatedRequestsViewModel
 import by.marpod.cdekapp.viewmodel.DirectionsViewModel
+import by.marpod.cdekapp.viewmodel.RequestsViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.activity_handle_request.*
 import javax.inject.Inject
@@ -23,6 +26,7 @@ class HandleRequestActivity : BaseActivity() {
 
     companion object {
         const val EXTRA_REQUEST = "request"
+        const val EXTRA_INDEX = "currentIndex"
     }
 
     override val layout: Int
@@ -35,33 +39,44 @@ class HandleRequestActivity : BaseActivity() {
         get() = root
 
     private lateinit var directionsViewModel: DirectionsViewModel
+    private lateinit var calculatedRequestsViewModel: CalculatedRequestsViewModel
+    private lateinit var requestsViewModel: RequestsViewModel
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<FrameLayout>
     private lateinit var adapter: HandleRequestAdapter
+
+    private var isUpdateDirectionsNeeded: Boolean = true
 
     private var directions: List<Direction> = emptyList()
     private var directionsAdapter: DirectionsAdapter? = null
 
     private val request by lazy { intent.getParcelableExtra<Request>(EXTRA_REQUEST) }
+    private var currentIndex: Int = 0
 
     override fun onResume() {
         super.onResume()
         showProgress()
 
+        currentIndex = intent.getIntExtra(EXTRA_INDEX, 0)
+
         directionsViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(DirectionsViewModel::class.java)
+        calculatedRequestsViewModel = ViewModelProviders.of(this, viewModelFactory)
+                .get(CalculatedRequestsViewModel::class.java)
+        requestsViewModel = ViewModelProviders.of(this, viewModelFactory)
+                .get(RequestsViewModel::class.java)
 
         bottomSheetBehavior = BottomSheetBehavior.from(bottom_sheet).apply {
             isHideable = true
         }
         hideBottomSheet()
 
-        adapter = HandleRequestAdapter(this, request)
-        recycler_view.adapter = adapter
+        setupAdapter()
         hideProgress()
         adapter.apply {
-            onChooseDestinationClicked = { cityFrom -> openDestinationsFrom(cityFrom) }
-            onAddAnotherClicked = {}
-            onSaveDestinationClicked = {}
+            onChooseDirectionClicked = { cityFrom -> openDestinationsFrom(cityFrom) }
+            onAddAnotherClicked = { addRequest() }
+            onSaveRequestClicked = { saveRequest(it) }
+            onSaveDirectionClicked = { addDirection(it) }
         }
 
         directionsViewModel.directionsFound.observe(this, EventObserver {
@@ -85,9 +100,31 @@ class HandleRequestActivity : BaseActivity() {
 
     private fun openDestinationsFrom(cityFrom: String) {
         showProgress()
-        directionsAdapter?.let {
+        if (!isUpdateDirectionsNeeded) {
             setupDirectionsAdapter()
-        } ?: directionsViewModel.getAllFrom(cityFrom)
+        } else {
+            directionsViewModel.getAllFrom(cityFrom)
+        }
+    }
+
+    private fun addRequest() {
+        currentIndex++
+        directions = emptyList()
+        isUpdateDirectionsNeeded = true
+        setupAdapter()
+        setupDirectionsAdapter()
+    }
+
+    private fun saveRequest(directions: List<Direction>) {
+        val calculatedRequest = CalculatedRequest(request.id, currentIndex, request, mapOf(currentIndex to directions))
+        calculatedRequestsViewModel.add(currentIndex, calculatedRequest)
+        requestsViewModel.setHandled(request)
+        finish()
+    }
+
+    private fun addDirection(direction: Direction) {
+        adapter.directions = adapter.directions + direction
+        isUpdateDirectionsNeeded = true
     }
 
     private fun directionClicked(direction: Direction) {
@@ -95,12 +132,18 @@ class HandleRequestActivity : BaseActivity() {
         hideBottomSheet()
     }
 
+    private fun setupAdapter() {
+        adapter = HandleRequestAdapter(request)
+        recycler_view.adapter = adapter
+    }
+
     private fun setupDirectionsAdapter() {
-        if (directionsAdapter == null) {
+        if (directionsAdapter == null || isUpdateDirectionsNeeded) {
             directionsAdapter = DirectionsAdapter(directions, request).apply {
                 onDirectionClicked = { directionClicked(it) }
             }
             directions_recycler.adapter = directionsAdapter
+            isUpdateDirectionsNeeded = false
         } else {
             hideProgress()
         }

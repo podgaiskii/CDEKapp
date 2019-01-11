@@ -1,4 +1,4 @@
-package by.marpod.cdekapp.data.dto
+package by.marpod.cdekapp.data
 
 object TransportationMethod {
     const val AUTO = "auto"

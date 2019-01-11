@@ -3,7 +3,7 @@ package by.marpod.cdekapp.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.marpod.cdekapp.constants.FirebaseTables
-import by.marpod.cdekapp.data.dto.Request
+import by.marpod.cdekapp.data.Request
 import by.marpod.cdekapp.util.FirebaseDatabaseLiveData
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -18,7 +18,7 @@ class RequestRepository @Inject constructor(
 ) {
 
     fun getAll(): LiveData<List<Request>?> = object : FirebaseDatabaseLiveData<List<Request>?>(
-            requestsDatabaseReference.orderByChild(Request.FIELD_HANDLED).equalTo(false)
+            requestsDatabaseReference.orderByKey()
     ) {
         override fun onCancelled(error: DatabaseError) {
             postValue(null)
@@ -120,7 +120,7 @@ class RequestRepository @Inject constructor(
 
     fun setHandled(request: Request): LiveData<Request?> {
         val result = MutableLiveData<Request?>()
-        requestsDatabaseReference.child(Request.FIELD_HANDLED).apply {
+        requestsDatabaseReference.child(request.id).child(Request.FIELD_HANDLED).apply {
             setValue(true)
             result.value = request
         }

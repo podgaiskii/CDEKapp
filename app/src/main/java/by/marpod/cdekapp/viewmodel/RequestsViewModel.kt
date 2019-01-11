@@ -6,7 +6,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import by.marpod.cdekapp.R
-import by.marpod.cdekapp.data.dto.Request
+import by.marpod.cdekapp.data.Request
 import by.marpod.cdekapp.repository.RequestRepository
 import by.marpod.cdekapp.util.Event
 import by.marpod.cdekapp.util.extensions.switchMap
@@ -151,6 +151,10 @@ class RequestsViewModel @Inject constructor(
 
     fun addRequest(request: Request) {
         requestAdd.value = request
+    }
+
+    fun setHandled(request: Request) {
+        requestRepository.setHandled(request)
     }
 
     private fun noRequestsFound() {

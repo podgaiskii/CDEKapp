@@ -1,5 +1,6 @@
 package by.marpod.cdekapp.di.modules
 
+import by.marpod.cdekapp.ui.fragment.CalculatedRequestFragment
 import by.marpod.cdekapp.ui.fragment.SplashFragment
 import by.marpod.cdekapp.ui.fragment.auth.AuthFragment
 import by.marpod.cdekapp.ui.fragment.auth.RegistrationFragment

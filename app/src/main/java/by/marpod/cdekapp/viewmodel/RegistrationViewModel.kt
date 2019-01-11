@@ -6,7 +6,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import by.marpod.cdekapp.R
-import by.marpod.cdekapp.data.dto.User
+import by.marpod.cdekapp.data.User
 import by.marpod.cdekapp.util.extensions.switchMap
 import by.marpod.cdekapp.repository.UsersRepository
 import by.marpod.cdekapp.util.Event

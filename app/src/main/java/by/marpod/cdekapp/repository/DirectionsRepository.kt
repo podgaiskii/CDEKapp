@@ -2,7 +2,7 @@ package by.marpod.cdekapp.repository
 
 import androidx.lifecycle.LiveData
 import by.marpod.cdekapp.constants.FirebaseTables
-import by.marpod.cdekapp.data.dto.Direction
+import by.marpod.cdekapp.data.Direction
 import by.marpod.cdekapp.util.FirebaseDatabaseLiveData
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -25,7 +25,36 @@ class DirectionsRepository @Inject constructor(
 
         override fun onDataChange(dataSnapshot: DataSnapshot) {
             if (dataSnapshot.exists()) {
-                postValue(dataSnapshot.children.map { it.value as Direction })
+                postValue(dataSnapshot.children.map { it.getValue(Direction::class.java)!! })
+            } else {
+                postValue(null)
+            }
+        }
+    }
+
+    fun getAll(ids: List<String>): LiveData<List<Direction>?> = object : FirebaseDatabaseLiveData<List<Direction>?>(
+            directionsDatabaseReference.orderByKey()
+    ) {
+        override fun onCancelled(error: DatabaseError) {
+            postValue(null)
+        }
+
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+            if (dataSnapshot.exists()) {
+                val directions = dataSnapshot.children.map { it.getValue(Direction::class.java)!! }
+                val result = mutableListOf<Direction>()
+                var prevCityTo = ""
+                lateinit var direction: Direction
+                for (id in ids) {
+                    direction = with(directions.find { it.id == id }!!) {
+                        if (prevCityTo.isNotBlank() && secondCity == prevCityTo) {
+                            Direction(id, secondCity, firstCity, method, distance, hours)
+                        } else this
+                    }
+                    result += direction
+                    prevCityTo = direction.secondCity
+                }
+                postValue(result)
             } else {
                 postValue(null)
             }
@@ -43,7 +72,14 @@ class DirectionsRepository @Inject constructor(
             if (dataSnapshot.exists()) {
                 postValue(dataSnapshot.children
                         .map { it.getValue(Direction::class.java)!! }
-                        .filter { it.hasCity(cityFrom) })
+                        .filter { it.hasCity(cityFrom) }
+                        .map {
+                            if (it.secondCity == cityFrom) {
+                                with(it) {
+                                    Direction(id, secondCity, firstCity, method, distance, hours)
+                                }
+                            } else it
+                        })
             } else {
                 postValue(null)
             }

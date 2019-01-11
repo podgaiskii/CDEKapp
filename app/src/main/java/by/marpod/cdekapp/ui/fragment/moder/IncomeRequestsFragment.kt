@@ -10,10 +10,11 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import by.marpod.cdekapp.R
 import by.marpod.cdekapp.base.BaseFragment
-import by.marpod.cdekapp.data.dto.Request
+import by.marpod.cdekapp.data.Request
 import by.marpod.cdekapp.ui.activity.HandleRequestActivity
 import by.marpod.cdekapp.ui.adapter.recyclerview.IncomeRequestsAdapter
 import by.marpod.cdekapp.util.extensions.EventObserver
+import by.marpod.cdekapp.viewmodel.CalculatedRequestsViewModel
 import by.marpod.cdekapp.viewmodel.RequestsViewModel
 import kotlinx.android.synthetic.main.fragment_income_requests.*
 import javax.inject.Inject
@@ -27,12 +28,15 @@ class IncomeRequestsFragment @Inject constructor() : BaseFragment() {
         get() = R.layout.fragment_income_requests
 
     lateinit var viewModel: RequestsViewModel
+    lateinit var calculatedRequestsViewModel: CalculatedRequestsViewModel
 
     private var adapter = IncomeRequestsAdapter(onClick = { handleRequest(it) })
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(RequestsViewModel::class.java)
+        calculatedRequestsViewModel = ViewModelProviders.of(this, viewModelFactory)
+                .get(CalculatedRequestsViewModel::class.java)
 
         recycler_view.adapter = adapter
 
@@ -45,6 +49,15 @@ class IncomeRequestsFragment @Inject constructor() : BaseFragment() {
 
         viewModel.noRequestsFound.observe(this, EventObserver {
             showEmptyList()
+        })
+
+        calculatedRequestsViewModel.requestFound.observe(this, EventObserver {
+            val args = bundleOf(
+                    HandleRequestActivity.EXTRA_REQUEST to it.request,
+                    HandleRequestActivity.EXTRA_INDEX to it.count
+            )
+            hideProgress()
+            findNavController().navigate(R.id.action_moderActivity_to_handleRequestActivity, args)
         })
     }
 
@@ -69,7 +82,8 @@ class IncomeRequestsFragment @Inject constructor() : BaseFragment() {
     }
 
     private fun handleRequest(request: Request) {
-        findNavController().navigate(R.id.action_moderActivity_to_handleRequestActivity, bundleOf(HandleRequestActivity.EXTRA_REQUEST to request))
+        calculatedRequestsViewModel.get(request)
+        showProgress()
     }
 
     private fun showProgress() {

@@ -1,7 +1,7 @@
 package by.marpod.cdekapp.repository
 
 import android.content.SharedPreferences
-import by.marpod.cdekapp.data.dto.User
+import by.marpod.cdekapp.data.User
 import javax.inject.Inject
 
 class CurrentUserRepository @Inject constructor(

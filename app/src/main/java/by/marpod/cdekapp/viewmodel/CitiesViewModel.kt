@@ -3,7 +3,7 @@ package by.marpod.cdekapp.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import by.marpod.cdekapp.data.dto.City
+import by.marpod.cdekapp.data.City
 import by.marpod.cdekapp.util.extensions.switchMap
 import by.marpod.cdekapp.repository.CitiesRepository
 import javax.inject.Inject
